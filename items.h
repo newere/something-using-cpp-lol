@@ -43,7 +43,7 @@ public:
 class tools: public items{
 
 public:
-    int quanitty = 1;
+    int quantity = 1;
     int durability = 100;
     tools(string name){
         this -> name = name;
@@ -52,7 +52,7 @@ public:
 
 class weapons: public items{
 public:
-    int quanitty = 1;
+    int quantity = 1;
     int durability = 100;
     weapons(string name){
         this -> name = name;
@@ -61,7 +61,7 @@ public:
 
 class consumables : public items{
 public:
-    int quantity = 0;
+    int quantity;
     int durability = 0;
     consumables(int quantity, string name){
         this -> quantity = quantity;
