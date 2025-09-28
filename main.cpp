@@ -11,15 +11,14 @@ int main() {
     player pl("arthur", "knight");
 
     cout << "Your name is " << pl.name << endl;
-
-    // initialize the player's bag
+
     pl.bag = Bag(5,5);
 
-    items* shovel = new tools( "shovel");  // durability + name
+    items* shovel = new tools( "shovel");   
     pl.bag.additems(shovel);
 
     cout << "This is your inventory: " << endl;
-    pl.bag.showbag();  // no need for (row, col)
+    pl.bag.showbag(); 
 
     return 0;
 }
