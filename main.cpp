@@ -9,6 +9,7 @@ int main() {
     int row, col;
 
     player pl("arthur", "knight");
+    Boss GoblinKing(1000, 12);
 
     cout << "Your name is " << pl.name << endl;
 
