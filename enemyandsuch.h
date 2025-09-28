@@ -12,3 +12,15 @@ public:
     }
 
 };
+
+class Boss: public enemy{
+public:
+    int health, damage;
+    Boss(int health, int damage){
+       this -> health = health;
+       this -> damage = damage;
+
+}
+
+
+};
