@@ -9,17 +9,17 @@ int main() {
     int row, col;
 
     player pl("arthur", "knight");
-    Boss GoblinKing(1000, 12);
 
     cout << "Your name is " << pl.name << endl;
-
+
+    //enemy g('golbin', )
     pl.bag = Bag(5,5);
 
-    items* shovel = new tools( "shovel");   
+    items* shovel = new tools( "shovel");
     pl.bag.additems(shovel);
 
     cout << "This is your inventory: " << endl;
-    pl.bag.showbag(); 
+    pl.bag.showbag();
 
     return 0;
 }
