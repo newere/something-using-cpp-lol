@@ -1,26 +1,39 @@
-#include "playableElements.h"
-#include "items.h"
-#include "enemyandsuch.h"
+#include "elements.h"
+#include "item.h"
+#include "enemy.h"
 #include <iostream>
 
-using namespace std;
-
 int main() {
-    int row, col;
 
-    player pl("arthur", "knight");
+    std::string fac;
 
-    cout << "Your name is " << pl.name << endl;
+    std::cout << "what faction are you from?"<<"\n"
+                 "elf"<<"\n"
+                 "human"<<"\n"
+                 "viking"<<"\n"
+                 "cavalry : ";
+    std::cin >> fac;
 
-    //enemy g('golbin', )
-    pl.bag = Bag(5,5);
+    weaponrln info = getweaponrlninfo(fac);
+    player p("hellzard", info);
 
-    items* shovel = new tools( "shovel");
-    pl.bag.additems(shovel);
+    std::cout << "Faction selected: " << fac << "\n";
+    switch (p.weapon) {
+    case allweapon::bow:
+        std::cout << "Assigned weapon: Bow\n";
+        break;
+    case allweapon::axe:
+        std::cout << "Assigned weapon: Axe\n";
+        break;
+    case allweapon::sword:
+        std::cout << "Assigned weapon: Sword\n";
+        break;
+    case allweapon::spear:
+        std::cout << "Assigned weapon: Spear\n";
+        break;
 
-    cout << "This is your inventory: " << endl;
-    pl.bag.showbag();
+    }
 
-    return 0;
+
 }
 
