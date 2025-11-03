@@ -3,7 +3,6 @@ This is the 4th iteration or v4.
 There have obviously been past iterations.
 This iteration focuses on maintaining clean code, implementing RAII, proper memory management and not using "this->".
 
-The 4th iteration is not complete yet and there are a lot more things i want to add to this.
 fstream has been implemented..
 item headerfile has been changed..
 
