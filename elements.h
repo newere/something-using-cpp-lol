@@ -48,15 +48,12 @@ weaponrln getweaponrlninfo(const std::string& fac){
 
 class Bag{
 private:
-    int rows, cols;
     std::vector<std::vector<items*>> grid;
 
 public:
 
     Bag(){
-        int rows = 5;
-        int cols = 4;
-        grid.resize(rows, std::vector<items*>(cols, nullptr));
+        grid.resize(5, std::vector<items*>(4, nullptr));
     }
 
     ~Bag(){}
@@ -134,7 +131,7 @@ public:
 
     ~player(){}
 
-    int dealdamage(){
+    int dealdamage() const {
         return damage;
     }
 

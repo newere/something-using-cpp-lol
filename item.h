@@ -26,16 +26,10 @@ public:
         :items("tool", name, 1, 100){}
 };
 
-class weapons : public items{
-public:
-    weapons(std::string name)
-        :items("weapon", name, 1, 100){}
-};
-
 class consumables : public items{
 public:
     consumables(std::string name, int quantity)
-        :items("consumable", name, quantity, 0){}
+        :items("consumable",name, quantity, 0){}
 };
 
 class armour : public items{
