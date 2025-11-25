@@ -1,13 +1,15 @@
 #include "elements.h"
 #include "item.h"
-#include "enemy.h"
 #include <fstream>
-#include <memory>
+#include<string>
+#include <vector>
 #include <iostream>
+#include <memory>
 
 int main() {
-
-    std::vector<std::vector<items*>> grid;
+    
+    int item_choice;
+    std::string fac;
     
     std::fstream file("report.txt", std::ios::trunc | std::ios::in | std::ios::out);
 
@@ -15,8 +17,6 @@ int main() {
         std::cerr << " Failed to open file! " << "\n" << std::endl;
 
     }
-
-    std::string fac;
 
     std::cout << "what faction are you from?"<<"\n"
                  "elf"<<"\n"
@@ -27,6 +27,8 @@ int main() {
 
     weaponrln info = getweaponrlninfo(fac);
     player p("hellzard", info);
+
+    file << "You're " << p.name << " of the " << fac << " faction.";
 
     std::cout << "Faction selected: " << fac << "\n";
     switch (p.weapon) {
@@ -48,19 +50,57 @@ int main() {
         break;
 
     }
+    /*
+    <--------------------------------------------------------------------------------------------------->
+    TODO
+     >> what do you want to create? <<--- menu for this  <<<---- COMPLETED ---->>>
+     >> additionally when the player types "showbag" or something like that then the inventory should be printed out <<<----COMPLETED---->>>
+     >>rather than taking the items pointer, it should take the refrence or just the name of the item..
+        also try to apply move semantics, const when possible 
+    <--------------------------------------------------------------------------------------------------->
+    */
 
-    tools* axe = new tools("axe");
-    consumables* potion = new consumables("Health potion", 6);
-    p.bag.showbag();
+    //tools* shovel = new tools("shovel");
+    //consumables* potion = new consumables("Health potion", 6);
 
-    p.bag.additems(axe);
-    p.bag.additems(potion);
-    p.bag.useitem(potion);
-    std::cout << "\n";
-    p.bag.showbag();
+     bool is_selecting = true;
+     std::string name;
+     while (is_selecting) {
+        char action;
+        std::cout << "What do you want to do? (Add->a/View->v/Use->u/Remove->r/Exit->e) : ";
+        std::cin >> action;
 
-    file << "You're "<< p.name <<" of the "<< fac <<" faction.";
+        switch(action){
+            case 'a':{
+                std::cout << "What do you want to add (Tools - 1/Consuambles - 2/Armor - 3) : ";
+                std::cin >> item_choice;
+                p.bag.addItems(item_choice);
+                break;
+           }
+            case 'v':{
+                p.bag.showbag();
+                break;
+            }
+            case 'u':{
+                //p.bag.useitem();
+                break;
+            }
+            case 'r':{
+                //p.bag.removeitem();
+                break;
+            }
+            case 'e':{
+                is_selecting = false;
+                break;
+            }
+            default:{
+                std::cout<<"ENTER A VALID OPTION AND IT SHOULD BE IN LOWERCASE"<<std::endl;
+                is_selecting = false;
+            }
+        }
+
+     }
+
     file.close();
-
 }
 

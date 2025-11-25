@@ -1,6 +1,7 @@
 #pragma once
 #include "item.h"
 #include <vector>
+#include <memory>
 #include <iostream>
 
 enum class allfactions{
@@ -45,50 +46,75 @@ weaponrln getweaponrlninfo(const std::string& fac){
     return humanfaction;
 
 }
-
 class Bag{
-private:
-    std::vector<std::vector<items*>> grid;
 
 public:
+int cols = 4;
+int rows = 5;
+    Bag(){}
 
-    Bag(){
-        grid.resize(5, std::vector<items*>(4, nullptr));
+    std::vector<std::vector<std::unique_ptr<items>>> grid;
+
+    Bag(int rows, int cols){
+        grid.resize(rows);
+
+        for(auto &rows : grid){
+            rows.resize(cols);
+        }
     }
 
-    ~Bag(){}
+    std::unique_ptr<items> addItems(int item_choice){
 
-    bool additems(items* item){
-        for(int i = 0; i < 5; i++){
-            for(int j = 0; j < 4; j++){
-                if (grid[i][j] == nullptr){
-                    grid[i][j] = item;
-                    return true;
-                }
+        std::string name;
 
+        switch(item_choice){
+            case 1:{
+                std::cout << "What Tool do you want to make : ";
+                std::cin >> name;
+                return std::make_unique<tools>(name);
+                break;
+            }
+            case 2:{
+                int quantity;
+                std::cout << "What kind of conumable do you want to make : ";
+                std::cin >> name;
+                std::cout << "\n";
+                std::cout << " How many of those :";
+                std::cin >> quantity;
+                return std::make_unique<consumables>(name, quantity);
+                break;
+            }
+            case 3:{
+                std::cout << " What armour do you want to make :";
+                std::cin >> name;
+                return std::make_unique<armour>(name, 24);
+                break;
+            }
+            default:{
+                std::cout<<"Wrong Choice!!, Try Again!"<<std::endl;
+                return nullptr;
             }
         }
-        std::cout <<"bag is full" << std::endl;
-        return false;
-
     }
 
-    void removeitems(int r, int c){
-        if(r >= 0 && r < 5 && c >= 0 && c < 4){
-            grid[r][c] = nullptr; // basically make it empty
-        }
-        else{
-            std::cout <<"[empty]"<< std::endl;
-        }
+  // TODO
+    //fix this as well <<-- item ko nam linxa and then it searches for that item and if present then it removes it.. 
+    // void removeitems(int r, int c){
+    //     if(r >= 0 && r < 5 && c >= 0 && c < 4){
+    //         grid[r][c] = nullptr; // basically make it empty
+    //     }
+    //     else{
+    //         std::cout <<"[empty]"<< std::endl;
+    //     }
 
-    }
+    // }
 
     void showbag(){
-        for(int i = 0; i < 5; i++){
-            for(int j =0; j < 4; j++){
+        for(int i = 0; i < rows; i++){
+            for(int j =0; j < cols; j++){
                 if(grid[i][j]){
-                    std::cout <<"["<< grid[i][j] -> name <<"," <<grid[i][j] ->quantity<<","
-                         <<grid[i][j] ->durability<<"]";
+                    std::cout <<"["<< grid[i][j]->name <<"," <<grid[i][j]->quantity<<","
+                         <<grid[i][j]->durability<<"]";
                 }
                 else{
                     std::cout << "[ empty ]" ;
@@ -100,7 +126,6 @@ public:
     }
 
     int useitem(items* item){
-
         if(item->durability > 0){
             item->durability -= 2;
         }
@@ -120,10 +145,10 @@ public:
 
 class player{
 public:
+    std::string name;
     allfactions faction;
     allweapon weapon;
     Bag bag;
-    std::string name;
     int health = 100, damage = 13;
 
     player(std::string name, weaponrln& info)
